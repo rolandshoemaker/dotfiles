@@ -1,0 +1,62 @@
+*utf8: 1
+*faceSize: 10
+*jumpScroll: true
+*multiScroll: true
+*boldMode: false
+*scrollBar: false
+*cutNewline: false
+*scrollTtyOutput: false
+*scrollKey: true
+*cursorBlink: true
+*dynamicColors: true
+*saveLines: 5000
+*geometry: 125x45
+
+URxvt*termName: rxvt
+
+## borderless and no scrollbar
+URxvt*scrollBar_right: false
+URxvt*scrollBar: false
+URxvt*borderLess: false
+
+## the (evil) transparency stuff
+URxvt*transparent:true
+URxvt*shading: 5
+
+## geometry and font
+URxvt*geometry: 84×24
+
+## URxvt*font: xft:M+ 1mn:pixelsize=10:antialias=true:hinting=true
+URxvt*font: xft:DejaVu Sans Mono:pixelsize=12:antialias=true:hinting=true
+URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=12:antialias=true:hinting=true
+URxvt.letterSpace: 1
+
+URxvt.perl-ext-common: default,matcher,tabbed,clipboard
+URxvt.urlLauncher: google-chrome
+URxvt.matcher.button: 2
+URxvt.matcher.pattern.1: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+URxvt.urgentOnBell: True
+
+URxvt*background      :   #3f3f3f
+URxvt*foreground      :   #DFCFAF
+URxvt*cursorColor     :   #F8F893
+URxvt*cursorBlink     :   true
+URxvt*colorUL         :   #c5f779
+URxvt*underlineColor  :   #c5f779
+URxvt.urgentOnBell    :   true
+URxvt*color0          :   #000000
+URxvt*color1          :   #9e1828
+URxvt*color2          :   #aece92
+URxvt*color3          :   #968a38
+URxvt*color4          :   #414171
+URxvt*color5          :   #963c59
+URxvt*color6          :   #418179
+URxvt*color7          :   #bebebe
+URxvt*color8          :   #666666
+URxvt*color9          :   #cf6171
+URxvt*color10         :   #c5f779
+URxvt*color11         :   #fff796
+URxvt*color12         :   #4186be
+URxvt*color13         :   #cf9ebe
+URxvt*color14         :   #71bebe
+URxvt*color15         :   #ffffff
