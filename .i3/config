@@ -38,8 +38,11 @@ exec --no-startup-id nm-applet
 # volume keys and stuff
 exec --no-startup-id gnome-sound-applet
 
+# travis build notifications
+exec --no-startup-id "travis monitor -n -m"
+
 # set background
-exec --no-startup-id feh --bg-scale Downloads/waves_in_sea-wallpaper-1600x900.jpg
+exec --no-startup-id "feh --bg-scale Downloads/waves_in_sea-wallpaper-1600x900.jpg"
 
 ##########
 # colors #

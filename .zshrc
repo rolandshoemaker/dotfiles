@@ -51,3 +51,6 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nano'
 fi
+
+# added by travis gem
+[ -f /home/roland/.travis/travis.sh ] && source /home/roland/.travis/travis.sh
