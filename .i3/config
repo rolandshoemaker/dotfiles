@@ -15,8 +15,8 @@ set $ws1 1: term
 set $ws2 2: dev
 set $ws3 3: irc
 set $ws4 4: www
-set $ws5 5: fs
-set $ws6 6
+set $ws5 5: 1pass
+set $ws6 6: fs
 set $ws7 7
 set $ws8 8
 set $ws9 9
