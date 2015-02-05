@@ -21,7 +21,7 @@ URxvt*borderLess: false
 
 ## the (evil) transparency stuff
 URxvt*transparent:true
-URxvt*shading: 5
+URxvt*shading: 4
 
 ## geometry and font
 URxvt*geometry: 84×24
@@ -35,7 +35,7 @@ URxvt.perl-ext-common: default,matcher,tabbed,clipboard
 URxvt.urlLauncher: google-chrome
 URxvt.matcher.button: 2
 URxvt.matcher.pattern.1: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
-URxvt.urgentOnBell: True
+URxvt.urgentOnBell: true
 
 URxvt*background      :   #3f3f3f
 URxvt*foreground      :   #DFCFAF

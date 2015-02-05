@@ -54,3 +54,10 @@ fi
 
 # added by travis gem
 [ -f /home/roland/.travis/travis.sh ] && source /home/roland/.travis/travis.sh
+
+# autoload -U compinit && compinit
+# autoload -U bashcompinit && bashcompinit
+# source /home/roland/theca-dev/bash_complete.sh
+
+fpath=(~/theca-dev/completion $fpath)
+autoload -U compinit && compinit
