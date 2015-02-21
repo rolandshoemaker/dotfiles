@@ -55,9 +55,6 @@ fi
 # added by travis gem
 [ -f /home/roland/.travis/travis.sh ] && source /home/roland/.travis/travis.sh
 
-# autoload -U compinit && compinit
-# autoload -U bashcompinit && bashcompinit
-# source /home/roland/theca-dev/bash_complete.sh
+PROMPT='[%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}@%{$fg[white]%}%m%{$reset_color%}:%{$fg[red]%}%30<...<%~%<<%{$reset_color%}]%(!.#.$) '
 
-fpath=(~/theca-dev/completion $fpath)
-autoload -U compinit && compinit
+THECA_PROFILE_FOLDER=/home/roland/Dropbox/.theca
