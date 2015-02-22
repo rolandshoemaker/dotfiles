@@ -48,13 +48,38 @@ export LANG=en_US.UTF-8
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
+  export VISUAL='nano'
 else
   export EDITOR='nano'
+  export VISUAL='nano'
 fi
 
 # added by travis gem
 [ -f /home/roland/.travis/travis.sh ] && source /home/roland/.travis/travis.sh
 
+#################
+# rando helpers #
+#################
+host=`uname -s`
+
+################
+# bettr prompt #
+################
 PROMPT='[%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}@%{$fg[white]%}%m%{$reset_color%}:%{$fg[red]%}%30<...<%~%<<%{$reset_color%}]%(!.#.$) '
 
-THECA_PROFILE_FOLDER=/home/roland/Dropbox/.theca
+###############
+# theca stuff #
+###############
+if [[ "$host" == "Linux" ]]; then
+	THECA_PROFILE_FOLDER=/home/roland/Dropbox/.theca
+elif [[ "$host" == "Darwin" ]]; then
+	THECA_PROFILE_FOLDER=/Users/roland/Dropbox/.theca
+fi
+
+###########
+# aliases #
+###########
+alias p3=python3
+alias ..='cd ..'
+alias update='sudo apt-get update && sudo apt-get upgrade'
+
