@@ -71,9 +71,9 @@ PROMPT='[%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}@%{$fg[white]%}%m%{$reset_color%}
 # theca stuff #
 ###############
 if [[ "$host" == "Linux" ]]; then
-	THECA_PROFILE_FOLDER=/home/roland/Dropbox/.theca
+	export THECA_PROFILE_FOLDER=/home/roland/Dropbox/.theca
 elif [[ "$host" == "Darwin" ]]; then
-	THECA_PROFILE_FOLDER=/Users/roland/Dropbox/.theca
+	export THECA_PROFILE_FOLDER=/Users/roland/Dropbox/.theca
 fi
 
 ###########
