@@ -1,29 +1,44 @@
 #!/usr/bin/python3
+#        __      __  __       
+#   ____/ /___  / /_/ /___  __
+#  / __  / __ \/ __/ __/ / / /
+# / /_/ / /_/ / /_/ /_/ /_/ / 
+# \__,_/\____/\__/\__/\__, /  
+#                    /____/   
+#
+# licensed under the MIT license <http://opensource.org/licenses/MIT>
+
+import platform
+
 COMMON = {
+	".Xdefaults": "~/.Xdefaults",
 	".zshrc": "~/.zshrc",
-	".nanorc": "~/.nanorx"
+	".nanorc": "~/.nanorc",
+	".bin": "~/.bin"
 }
 
 MACHINES = [
 	{
-		"name": "san",
+		"hostname": "san",
 		"files": {
 			
 		}
 	},
 	{
-		"name": "niya",
+		"hostname": "niya",
+		"files": {
+			
+		},
+		"exclude": [
+			".Xdefaults"
+		]
+	},
+	{
+		"hostname": "moro",
 		"files": {
 			".i3": "~/.i3",
 			".conkyrc": "~/.conkyrc"
 		}
 	}
-	{
-		"name": "moro",
-		"files": {
-			
-		}
-	}
 ]
-
 
