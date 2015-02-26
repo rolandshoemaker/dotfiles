@@ -13,11 +13,11 @@ font pango:DejaVu Sans Mono 8
 
 set $ws1 1: term
 set $ws2 2: dev
-set $ws3 3: irc
+set $ws3 3: dev-cont
 set $ws4 4: www
-set $ws5 5: 1pass
+set $ws5 5: irc
 set $ws6 6: vm
-set $ws7 7: fs
+set $ws7 7
 set $ws8 8
 set $ws9 9
 set $ws10 10
@@ -38,11 +38,17 @@ exec --no-startup-id nm-applet
 # volume keys and stuff
 exec --no-startup-id gnome-sound-applet
 
+# start dropbox
+exec --no-startup-id dropbox start
+
+# start fluxgui
+exec --no-startup-id fluxgui
+
 # travis build notifications
 exec --no-startup-id "travis monitor -n -m"
 
 # set background
-exec --no-startup-id "feh --bg-scale Downloads/waves_in_sea-wallpaper-1600x900.jpg"
+exec --no-startup-id "feh --bg-scale /home/roland/kanagawa.jpg"
 
 ##########
 # colors #

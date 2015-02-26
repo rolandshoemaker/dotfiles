@@ -20,28 +20,30 @@ specific configuration dotfiles across various machines. It uses a pretty simple
 the configuration file specified using `-c` or `--config`.
 
 	$ dotty.py
-		Usage: dotty.py [OPTIONS] COMMAND1 [ARGS]... [COMMAND2 [ARGS]...]...
+	Usage: dotty.py [OPTIONS] COMMAND1 [ARGS]... [COMMAND2 [ARGS]...]...
 
-		Options:
-		  -c, --config TEXT
-		  -o, --overwrite
-		  -x
-		  --help             Show this message and exit.
+	Options:
+	  -c, --config TEXT  Path to configuration file instead of just using
+	                     config.json.
+	  -o, --overwrite    Overwrite files instead of failing.
+	  -x                 Hide the header.
+	  --help             Show this message and exit.
 
-		Commands:
-		  check_config  Whats your dotty.py config file say
-		  in            Collect local configuration files
-		  out           Distribute configuration files locally
-		  pull          Pull most recent commit using git
-		  push          Commit and push changes using git
+	Commands:
+	  check_config  Whats your dotty.py config file say.
+	  in            Collect local configuration files.
+	  out           Distribute configuration files locally.
+	  pull          Pull most recent commit using git.
+	  push          Commit and push changes using git.
 
-`dotty.py` uses the *Python* [click](http://click.pocoo.org/) cli library which allows super awesome command chaining allowing things like this
+`dotty.py` uses the *Python* [click](http://click.pocoo.org/) cli library which allows super awesome command chaining (or single
+command invocation) allowing things like this
 
 	$ ./dotty.py -o pull out # ...excuse me
 
 will pull the most recent commit from where ever your `git` remote points too and then copy the files to the right local
 directories as specificed in the config.json file (`dotty.py` will do user expansion so you can use paths like `~/.zshrc`
-safely for common and machine specific files).
+safely for common ***and*** machine specific files).
 
 or 
 

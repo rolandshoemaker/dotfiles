@@ -60,9 +60,9 @@ def in_out(ctx):
 		copy_files(ctx.obj["config"]["machine_specific"][ctx.obj["host"]], ctx.obj["host"], overwrite=ctx.obj["overwrite"])
 
 @click.group(chain=True)
-@click.option("-c", "--config")
-@click.option("-o", "--overwrite", is_flag=True, default=False)
-@click.option("-x", is_flag=True, default=False)
+@click.option("-c", "--config", help="Path to configuration file instead of just using 'config.json'.")
+@click.option("-o", "--overwrite", is_flag=True, default=False, help="Overwrite files instead of failing.")
+@click.option("-x", is_flag=True, default=False, help="Hide the header.")
 @click.pass_context
 def cli(ctx, config, overwrite, x):
 	if not config:
@@ -103,7 +103,7 @@ def cli(ctx, config, overwrite, x):
 @click.option("--host-only")
 @click.pass_context
 def dots_in(ctx, common_only, host_only):
-	"""Collect local configuration files"""
+	"""Collect local configuration files."""
 	click.secho("# Collecting files", bold=True)
 	ctx.obj["common_only"] = common_only
 	ctx.obj["host_only"] = host_only
@@ -114,7 +114,7 @@ def dots_in(ctx, common_only, host_only):
 @click.option("--host-only")
 @click.pass_context
 def dots_out(ctx, common_only, host_only):
-	"""Distribute configuration files locally"""
+	"""Distribute configuration files locally."""
 	click.secho("# Distributing files", bold=True)
 	ctx.obj["common_only"] = common_only
 	ctx.obj["host_only"] = host_only
@@ -122,7 +122,7 @@ def dots_out(ctx, common_only, host_only):
 
 @cli.command("pull")
 def pull():
-	"""Pull most recent commit using git"""
+	"""Pull most recent commit using git."""
 	click.secho("# Pulling from git repository", bold=True)
 	call(["git", "pull"])
 	git_hash = call(["git", "rev-parse", "--short", "HEAD"]).strip()
@@ -132,7 +132,7 @@ def pull():
 @click.argument("message")
 @click.pass_context
 def push(ctx, message, add=None):
-	"""Commit and push changes using git"""
+	"""Commit and push changes using git."""
 	click.secho("# Pusing to git repository", bold=True)
 	if add == True:
 		call(["git", "add", "."])
@@ -147,7 +147,7 @@ def push(ctx, message, add=None):
 @cli.command("check_config")
 @click.pass_context
 def check_config(ctx):
-	"""Whats your dotty.py config file say"""
+	"""Whats your dotty.py config file say."""
 	host = platform.node()
 
 	click.secho("# Common files", bold=True)
