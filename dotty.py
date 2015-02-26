@@ -54,14 +54,18 @@ def cli(ctx, config, overwrite):
 		config = "config.json"
 	with open(config, "r") as f:
 		config_f = json.load(f)
+
+	remotes = call(["git", "remote", "-v"]).split("\n")
+	cur_hash = call(["git", "rev-parse", "--short", "HEAD"])
+
+	ctx.obj["fetch"] = remotes[0].split("\t")[1].split(" ")[0]
+	ctx.obj["push"] = remotes[1].split("\t")[1].split(" ")[0]
 	ctx.obj["config"] = config_f
 	ctx.obj["overwrite"] = overwrite
 	ctx.obj["host"] = platform.node() # ...?
 
 	color = random.choice(["blue", "red", "green", "magenta", "cyan", "yellow"])
 
-	remotes = call(["git", "remote", "-v"]).split("\n")
-	cur_hash = call(["git", "rev-parse", "--short", "HEAD"])
 	click.secho("#", fg=color)
 	click.secho("#        __      __  __       ", fg=color)
 	click.secho("#   ____/ /___  / /_/ /___  __", fg=color)
@@ -72,8 +76,8 @@ def cli(ctx, config, overwrite):
 	click.secho("#", fg=color)
 	click.secho("# dotty v%s" % (VERSION), fg=color)
 	click.secho("# configuration file: %s" % (config), fg=color)
-	click.secho("# git remote fetch: %s" % (remotes[0].split("\t")[1].split(" ")[0]), fg=color)
-	click.secho("# git remote push: %s" % (remotes[1].split("\t")[1].split(" ")[0]), fg=color)
+	click.secho("# git remote fetch: %s" % (ctx.obj["fetch"]), fg=color)
+	click.secho("# git remote push: %s" % (ctx.obj["push"]), fg=color)
 	click.secho("# git current commit: %s" % (cur_hash.strip()), fg=color)
 	click.secho("#", fg=color)
 	click.echo()
@@ -105,7 +109,8 @@ def pull():
 
 @cli.command("push")
 @click.argument("message")
-def push(message, add=None):
+@click.pass_context
+def push(ctx, message, add=None):
 	click.secho("# Pusing to git repository", bold=True)
 	if add == True:
 		call(["git", "add", "."])
@@ -114,6 +119,8 @@ def push(message, add=None):
 			call(["git", "add", a])
 	call(["git", "commit", "-am", message])
 	call(["git", "push"])
+	git_hash = call(["git", "rev-parse", "--short", "HEAD"])
+	click.echo("[%s] pushed to %s, new git hash %s" % (click.style("OK", fg="green"), ctx.obj["push"]), git_hash)
 
 @cli.command("check_config")
 @click.pass_context
