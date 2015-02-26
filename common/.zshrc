@@ -45,11 +45,7 @@ PROMPT='[%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}@%{$fg[white]%}%m%{$reset_color%}
 ###############
 # theca stuff #
 ###############
-if [[ "$host" == "Linux" ]]; then
-	export THECA_PROFILE_FOLDER=/home/roland/Dropbox/.theca
-elif [[ "$host" == "Darwin" ]]; then
-	export THECA_PROFILE_FOLDER=/Users/roland/Dropbox/.theca
-fi
+export THECA_PROFILE_FOLDER=$HOME/Dropbox/.theca
 
 ###########
 # aliases #
@@ -68,8 +64,7 @@ alias j='jobs -l'
 alias now='date +%T'
 alias -g L="| less"
 alias ping='ping -c 5'
-alias fping='ping -c 5 -s.1'
-alias rm='rm -I --preserve-root'
+alias rm='rm --preserve-root'
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
@@ -86,7 +81,6 @@ alias df='dh -H'
 ############
 # keybinds #
 ############
-
 sudo-accept-line() {
     if [ -n "${BUFFER## *}" ]; then
         BUFFER="sudo ${BUFFER##sudo }"
@@ -97,3 +91,16 @@ sudo-accept-line() {
 
 zle -N sudo-accept-line
 bindkey "^O" sudo-accept-line
+
+#############
+# git setup #
+#############
+if [[ ! -n $( git config --global user.name ) ]]; then
+	git config --global user.name "Roland Shoemaker"
+fi
+if [[ ! -n $( git config --global user.email ) ]]; then
+	git config --global user.email rolandshoemaker@gmail.com
+fi
+if [[ ! -n git config --global push.default ]]; then
+	git config --global push.default simple
+fi
