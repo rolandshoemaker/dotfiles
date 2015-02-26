@@ -26,7 +26,9 @@ def copy_files(files, dot_folder, overwrite=False, reverse=False):
 				exit(1)
 			if t.startswith("~"):
 				t = os.path.expanduser(t)
-			if reverse: f, t = t, f
+			if reverse:
+				f, t = t, f
+				print("we")
 			if os.path.exists(t) and not overwrite:
 				click.echo("        [%s] %s exists and would be overwritten and `-o` isn't set, failing fast." % (click.style("ERROR", fg="red"), t), err=True)
 				exit(1)

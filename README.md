@@ -1,7 +1,7 @@
 # dotfiles
 
 well hello, these are my dotfiles and also a dotfile management tool I wrote in *Python* called `dotty.py`. They are seperated
-by machine hostname, if you are looking around for certain stuff these hosts run these stacks
+by machine hostname, if you are looking around for certain stuff these hosts run these *stacks*
 
 * `niya` - `Ubuntu 14.10 + xfce4 + xfwm`
 * `moro` - `Ubuntu 14.10 + i3 + conky + urxvt`
