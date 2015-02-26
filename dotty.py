@@ -56,7 +56,7 @@ def cli(ctx, config, overwrite):
 		config_f = json.load(f)
 
 	remotes = call(["git", "remote", "-v"]).split("\n")
-	cur_hash = call(["git", "rev-parse", "--short", "HEAD"])
+	cur_hash = call(["git", "rev-parse", "--short", "HEAD"]).strip()
 
 	ctx.obj["fetch"] = remotes[0].split("\t")[1].split(" ")[0]
 	ctx.obj["push"] = remotes[1].split("\t")[1].split(" ")[0]
@@ -78,7 +78,7 @@ def cli(ctx, config, overwrite):
 	click.secho("# configuration file: %s" % (config), fg=color)
 	click.secho("# git remote fetch: %s" % (ctx.obj["fetch"]), fg=color)
 	click.secho("# git remote push: %s" % (ctx.obj["push"]), fg=color)
-	click.secho("# git current commit: %s" % (cur_hash.strip()), fg=color)
+	click.secho("# git current commit: %s" % (cur_hash), fg=color)
 	click.secho("#", fg=color)
 	click.echo()
 
@@ -119,7 +119,7 @@ def push(ctx, message, add=None):
 			call(["git", "add", a])
 	call(["git", "commit", "-am", message])
 	call(["git", "push"])
-	git_hash = call(["git", "rev-parse", "--short", "HEAD"])
+	git_hash = call(["git", "rev-parse", "--short", "HEAD"]).strip()
 	click.echo("[%s] pushed to %s, new git hash %s" % (click.style("OK", fg="green"), ctx.obj["push"], git_hash))
 
 @cli.command("check_config")
