@@ -16,16 +16,30 @@ from subprocess import Popen, PIPE
 
 VERSION = "0.0.1"
 
-def copy_files(files, dot_folder, fast_fail=True, reverse=False):
-	click.secho("# Copying files for %s" % (dot_folder), bold=True)
-	for f, t in files.items():
-		f = os.path.join(dot_folder, f)
-		if reverse: f, t = t, f
-		if os.path.exists(t) and fast_fail:
-			click.echo("\t[%s] %s exists and would be overwritten, failing fast." % (click.style("ERROR", fg="red"), rel_t), err=True)
-			exit(1)
-		shutil.copy2(f, t)
-		click.echo("\t[%s] copied %s -> %s" % (click.style("OK", fg="green"), f, t))
+def copy_files(files, dot_folder, overwrite=False, reverse=False):
+	click.echo("    Copying files for %s" % (dot_folder))
+	if len(files.keys()) > 0: 
+		for f, t in files.items():
+			f = os.path.join(dot_folder, f)
+			if not os.path.exists(f):
+				click.echo("\t[%s] target file %s doesn't exist" % (click.style("ERROR", fg="red"), f), err=True)
+				exit(1)
+			if t.startswith("~"):
+				t = os.path.expanduser(t)
+			if reverse: f, t = t, f
+			if os.path.exists(t) and not overwrite:
+				click.echo("\t[%s] %s exists and would be overwritten and `-o` isn't set, failing fast." % (click.style("ERROR", fg="red"), t), err=True)
+				exit(1)
+			if os.path.isfile(f):
+				shutil.copy2(f, t)
+			elif os.path.isdir(f):
+				if os.path.exists(t):
+					shutil.rmtree(t)
+				shutil.copytree(f, t)
+			click.echo("\t[%s] copied %s -> %s" % (click.style("OK", fg="green"), f, t))
+		click.echo()
+	else:
+		click.echo("\tno files to copy for %s\n" % (dot_folder))
 
 def call(command):
 	cmd = Popen(command, stdout=PIPE, stderr=PIPE)
@@ -38,16 +52,16 @@ def call(command):
 
 def in_out(ctx):
 	if not ctx.obj["host_only"]:
-		copy_files(ctx.obj["config"]["common"], "common", fast_fail=ctx.obj["overwrite"])
+		copy_files(ctx.obj["config"]["common"], "common", overwrite=ctx.obj["overwrite"])
 	if not ctx.obj["common_only"]:
-		if not ctx.obj["config"]["machine_specific"].get(host, None):
-			click.echo("[%s] no configuration for %s" % (click.style("ERROR", fg="red"), host), err=True)
+		if ctx.obj["config"]["machine_specific"].get(ctx.obj["host"], None) == None:
+			click.echo("[%s] no configuration for %s" % (click.style("ERROR", fg="red"), ctx.obj["host"]), err=True)
 			exit(1)
-		copy_files(ctx.obj["config"]["machine_specific"][host], host, fast_fail=ctx.obj["overwrite"])
+		copy_files(ctx.obj["config"]["machine_specific"][ctx.obj["host"]], ctx.obj["host"], overwrite=ctx.obj["overwrite"])
 
 @click.group(chain=True)
 @click.option("-c", "--config")
-@click.option("-o", "--overwrite")
+@click.option("-o", "--overwrite", is_flag=True, default=False)
 @click.pass_context
 def cli(ctx, config, overwrite):
 	if not config:
@@ -74,7 +88,8 @@ def cli(ctx, config, overwrite):
 	click.secho("# \__,_/\____/\__/\__/\__, /  ", fg=color)
 	click.secho("#                    /____/   ", fg=color)
 	click.secho("#", fg=color)
-	click.secho("# dotty v%s" % (VERSION), fg=color)
+	click.secho("# dotty v%s - dotfile management tool ^_^" % (VERSION), fg=color)
+	click.secho("# here is: %s" % (ctx.obj["host"]), fg=color)
 	click.secho("# configuration file: %s" % (config), fg=color)
 	click.secho("# git remote fetch: %s" % (ctx.obj["fetch"]), fg=color)
 	click.secho("# git remote push: %s" % (ctx.obj["push"]), fg=color)
@@ -107,7 +122,7 @@ def pull():
 	click.secho("# Pulling from git repository", bold=True)
 	call(["git", "pull"])
 	git_hash = call(["git", "rev-parse", "--short", "HEAD"]).strip()
-	click.echo("\t[%s] pulled from %s, current git commit %s" % (click.style("OK", fg="green"), ctx.obj["fetch"], git_hash))
+	click.echo("\t[%s] pulled from %s, current git commit %s\n" % (click.style("OK", fg="green"), ctx.obj["fetch"], git_hash))
 
 @cli.command("push")
 @click.argument("message")
@@ -122,7 +137,7 @@ def push(ctx, message, add=None):
 	call(["git", "commit", "-am", message])
 	call(["git", "push"])
 	git_hash = call(["git", "rev-parse", "--short", "HEAD"]).strip()
-	click.echo("\t[%s] pushed to %s, new git commit %s" % (click.style("OK", fg="green"), ctx.obj["push"], git_hash))
+	click.echo("\t[%s] pushed to %s, new git commit %s\n" % (click.style("OK", fg="green"), ctx.obj["push"], git_hash))
 
 @cli.command("check_config")
 @click.pass_context
