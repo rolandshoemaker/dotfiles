@@ -2,31 +2,7 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
 ZSH_THEME="mh"
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -38,7 +14,6 @@ plugins=(git)
 # User configuration
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-# export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -79,7 +54,46 @@ fi
 ###########
 # aliases #
 ###########
-alias p=python3
-alias ..='cd ..'
 alias update='sudo apt-get update && sudo apt-get upgrade'
-alias ls='ls -al'
+alias apt-get='sudo apt-get'
+
+alias p=python3
+
+alias ..='cd ..'
+alias ls='ls --color=auto'
+alias ll='ls -al --color=auto'
+alias l.='ls -d .* --color=auto'
+alias sz='ls -l --color=auto | sort -n +3 | tail -10'
+alias j='jobs -l'
+alias now='date +%T'
+alias -g L="| less"
+alias ping='ping -c 5'
+alias fping='ping -c 5 -s.1'
+alias rm='rm -I --preserve-root'
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+
+alias fuck='sudo $( history -p \!\!)'
+alias s=sudo
+alias sudo='sudo '
+alias su='sudo -i'
+alias reboot='sudo /sbin/reboot'
+alias shutdown='sudo /sbin/shutdown'
+alias wget='wget -c'
+alias df='dh -H'
+
+############
+# keybinds #
+############
+
+sudo-accept-line() {
+    if [ -n "${BUFFER## *}" ]; then
+        BUFFER="sudo ${BUFFER##sudo }"
+        zle end-of-line        
+        zle accept-line
+    fi
+}
+
+zle -N sudo-accept-line
+bindkey "^O" sudo-accept-line
