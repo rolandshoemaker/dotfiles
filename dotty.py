@@ -28,7 +28,6 @@ def copy_files(files, dot_folder, overwrite=False, reverse=False):
 				t = os.path.expanduser(t)
 			if reverse:
 				f, t = t, f
-				print("we")
 			if os.path.exists(t) and not overwrite:
 				click.echo("        [%s] %s exists and would be overwritten and `-o` isn't set, failing fast." % (click.style("ERROR", fg="red"), t), err=True)
 				exit(1)
@@ -52,14 +51,14 @@ def call(command):
 		exit(rc)
 	return output.decode("utf-8")
 
-def in_out(ctx):
+def in_out(ctx, reverse=False):
 	if not ctx.obj["host_only"]:
-		copy_files(ctx.obj["config"]["common"], "common", overwrite=ctx.obj["overwrite"])
+		copy_files(ctx.obj["config"]["common"], "common", overwrite=ctx.obj["overwrite"], reverse=reverse)
 	if not ctx.obj["common_only"]:
 		if ctx.obj["config"]["machine_specific"].get(ctx.obj["host"], None) == None:
 			click.echo("[%s] no configuration for %s" % (click.style("ERROR", fg="red"), ctx.obj["host"]), err=True)
 			exit(1)
-		copy_files(ctx.obj["config"]["machine_specific"][ctx.obj["host"]], ctx.obj["host"], overwrite=ctx.obj["overwrite"])
+		copy_files(ctx.obj["config"]["machine_specific"][ctx.obj["host"]], ctx.obj["host"], overwrite=ctx.obj["overwrite"], reverse=reverse)
 
 @click.group(chain=True)
 @click.option("-c", "--config", help="Path to configuration file instead of just using 'config.json'.")
@@ -109,7 +108,7 @@ def dots_in(ctx, common_only, host_only):
 	click.secho("# Collecting files", bold=True)
 	ctx.obj["common_only"] = common_only
 	ctx.obj["host_only"] = host_only
-	in_out(ctx)
+	in_out(ctx, reverse=True)
 
 @cli.command("out")
 @click.option("--common-only")
