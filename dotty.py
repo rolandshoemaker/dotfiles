@@ -122,7 +122,8 @@ def dots_out(ctx, common_only, host_only):
 	in_out(ctx)
 
 @cli.command("pull")
-def pull():
+@click.pass_context
+def pull(ctx):
 	"""Pull most recent commit using git."""
 	click.secho("# Pulling from git repository", bold=True)
 	call(["git", "pull"])
@@ -134,7 +135,7 @@ def pull():
 @click.pass_context
 def push(ctx, message, add=None):
 	"""Commit and push changes using git."""
-	click.secho("# Pusing to git repository", bold=True)
+	click.secho("# Pushing to git repository", bold=True)
 	if add == True:
 		call(["git", "add", "."])
 	elif type(add) == list:
