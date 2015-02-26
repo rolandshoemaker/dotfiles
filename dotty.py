@@ -122,7 +122,7 @@ def pull():
 	click.secho("# Pulling from git repository", bold=True)
 	call(["git", "pull"])
 	git_hash = call(["git", "rev-parse", "--short", "HEAD"]).strip()
-	click.echo("\t[%s] pulled from %s, current git commit %s\n" % (click.style("OK", fg="green"), ctx.obj["fetch"], git_hash))
+	click.echo("    [%s] pulled from %s, current git commit %s\n" % (click.style("OK", fg="green"), ctx.obj["fetch"], git_hash))
 
 @cli.command("push")
 @click.argument("message")
@@ -137,7 +137,7 @@ def push(ctx, message, add=None):
 	call(["git", "commit", "-am", message])
 	call(["git", "push"])
 	git_hash = call(["git", "rev-parse", "--short", "HEAD"]).strip()
-	click.echo("\t[%s] pushed to %s, new git commit %s\n" % (click.style("OK", fg="green"), ctx.obj["push"], git_hash))
+	click.echo("    [%s] pushed to %s, new git commit %s\n" % (click.style("OK", fg="green"), ctx.obj["push"], git_hash))
 
 @cli.command("check_config")
 @click.pass_context
@@ -146,15 +146,15 @@ def check_config(ctx):
 
 	click.secho("# Common files", bold=True)
 	for f, t in ctx.obj["config"]["common"].items():
-		click.echo("\tcommon/%s -> %s" % (f, t))
+		click.echo("        common/%s -> %s" % (f, t))
 	click.echo()
 
 	click.secho("# You are on [%s]" % (host), bold=True)
 	if len(ctx.obj["config"]["machine_specific"][host].keys()) > 0:
 		for f, t in ctx.obj["config"]["machine_specific"][host].items():
-				click.echo("\t%s/%s -> %s" % (host, f, t))
+				click.echo("        %s/%s -> %s" % (host, f, t))
 	else:
-		click.echo("\tno files for %s" % (host))
+		click.echo("        no files for %s" % (host))
 	click.echo()
 
 	for host_spec, files in ctx.obj["config"]["machine_specific"].items():
