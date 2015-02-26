@@ -1,0 +1,16 @@
+{
+	"common": {
+        	".zshrc": "~/.zshrc",
+       		".nanorc": "~/.nanorc",
+        	".bin": "~/.bin"
+	},
+	"machine_specific": {
+		"san": {},
+		"niya": {},
+		"moro": {
+			".i3": "~/.i3",
+			".conkyrc": "~/.conkyrc",
+			".Xdefaults": "~/.Xdefaults"
+		}
+	}
+}
