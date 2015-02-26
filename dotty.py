@@ -22,17 +22,17 @@ def copy_files(files, dot_folder, fast_fail=True, reverse=False):
 		f = os.path.join(dot_folder, f)
 		if reverse: f, t = t, f
 		if os.path.exists(t) and fast_fail:
-			click.echo("[%s] %s exists and would be overwritten, failing fast." % (click.style("ERROR", fg="red"), rel_t), err=True)
+			click.echo("\t[%s] %s exists and would be overwritten, failing fast." % (click.style("ERROR", fg="red"), rel_t), err=True)
 			exit(1)
 		shutil.copy2(f, t)
-		click.echo("[%s] copied %s -> %s" % (click.style("OK", fg="green"), f, t))
+		click.echo("\t[%s] copied %s -> %s" % (click.style("OK", fg="green"), f, t))
 
 def call(command):
 	cmd = Popen(command, stdout=PIPE, stderr=PIPE)
 	output = cmd.communicate()[0]
 	rc = cmd.returncode
 	if rc > 0:
-		click.echo("[%s] \"%s\" exited with code %d. ABORTING" % (click.style("ERROR", fg="red"), command, cmd.returncode))
+		click.echo("\t[%s] \"%s\" exited with code %d. ABORTING" % (click.style("ERROR", fg="red"), command, cmd.returncode))
 		exit(rc)
 	return output.decode("utf-8")
 
@@ -106,6 +106,8 @@ def dots_out(ctx, common_only, host_only):
 def pull():
 	click.secho("# Pulling from git repository", bold=True)
 	call(["git", "pull"])
+	git_hash = call(["git", "rev-parse", "--short", "HEAD"]).strip()
+	click.echo("\t[%s] pulled from %s, current git commit %s" % (click.style("OK", fg="green"), ctx.obj["fetch"], git_hash))
 
 @cli.command("push")
 @click.argument("message")
@@ -120,7 +122,7 @@ def push(ctx, message, add=None):
 	call(["git", "commit", "-am", message])
 	call(["git", "push"])
 	git_hash = call(["git", "rev-parse", "--short", "HEAD"]).strip()
-	click.echo("[%s] pushed to %s, new git hash %s" % (click.style("OK", fg="green"), ctx.obj["push"], git_hash))
+	click.echo("\t[%s] pushed to %s, new git commit %s" % (click.style("OK", fg="green"), ctx.obj["push"], git_hash))
 
 @cli.command("check_config")
 @click.pass_context
