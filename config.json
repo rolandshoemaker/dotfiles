@@ -10,7 +10,8 @@
 		"moro": {
 			".i3": "~/.i3",
 			".conkyrc": "~/.conkyrc",
-			".Xdefaults": "~/.Xdefaults"
+			".Xdefaults": "~/.Xdefaults",
+			".bin/xfce_ws_notify.sh": "~/.bin/xfce_ws_notify.sh"
 		}
 	}
 }
