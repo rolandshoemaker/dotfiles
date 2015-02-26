@@ -79,7 +79,7 @@ fi
 ###########
 # aliases #
 ###########
-alias p3=python3
+alias p=python3
 alias ..='cd ..'
 alias update='sudo apt-get update && sudo apt-get upgrade'
 alias ls='ls -al'
