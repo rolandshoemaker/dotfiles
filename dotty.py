@@ -120,7 +120,7 @@ def push(ctx, message, add=None):
 	call(["git", "commit", "-am", message])
 	call(["git", "push"])
 	git_hash = call(["git", "rev-parse", "--short", "HEAD"])
-	click.echo("[%s] pushed to %s, new git hash %s" % (click.style("OK", fg="green"), ctx.obj["push"]), git_hash)
+	click.echo("[%s] pushed to %s, new git hash %s" % (click.style("OK", fg="green"), ctx.obj["push"], git_hash))
 
 @cli.command("check_config")
 @click.pass_context
