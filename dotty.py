@@ -100,8 +100,8 @@ def cli(ctx, config, overwrite, x):
 		click.echo()
 
 @cli.command("in")
-@click.option("--common-only")
-@click.option("--host-only")
+@click.option("--common-only", is_flag=True, default=False)
+@click.option("--host-only", is_flag=True, default=False)
 @click.pass_context
 def dots_in(ctx, common_only, host_only):
 	"""Collect local configuration files."""

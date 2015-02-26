@@ -51,3 +51,9 @@ or
 
 which will copy all the local config files to the dotfile folder and then commit the changes with the provided message
 and then push to the remote.
+
+or even
+
+	$ ./dotty.py -o pull in push out
+
+which by this point should be pretty obvious.
