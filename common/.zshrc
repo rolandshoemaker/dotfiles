@@ -50,25 +50,26 @@ export THECA_PROFILE_FOLDER=$HOME/Dropbox/.theca
 ###########
 # aliases #
 ###########
-alias update='sudo apt-get update && sudo apt-get upgrade'
-alias apt-get='sudo apt-get'
+
+if [[ $( uname -s ) = "Linux" ]]; then
+	alias update='sudo apt-get update && sudo apt-get upgrade'
+	alias apt-get='sudo apt-get'
+	alias ls='ls --color=auto'
+	alias ll='ls -al --color=auto'
+	alias l.='ls -d .* --color=auto'
+	alias sz='ls -l --color=auto | sort -n +3 | tail -10'
+	alias -g L="| less"
+	alias rm='rm --preserve-root'
+	alias chown='chown --preserve-root'
+	alias chmod='chmod --preserve-root'
+	alias chgrp='chgrp --preserve-root'
+fi
 
 alias p=python3
-
 alias ..='cd ..'
-alias ls='ls --color=auto'
-alias ll='ls -al --color=auto'
-alias l.='ls -d .* --color=auto'
-alias sz='ls -l --color=auto | sort -n +3 | tail -10'
 alias j='jobs -l'
 alias now='date +%T'
-alias -g L="| less"
 alias ping='ping -c 5'
-alias rm='rm --preserve-root'
-alias chown='chown --preserve-root'
-alias chmod='chmod --preserve-root'
-alias chgrp='chgrp --preserve-root'
-
 alias fuck='sudo $( history -p \!\!)'
 alias s=sudo
 alias sudo='sudo '
