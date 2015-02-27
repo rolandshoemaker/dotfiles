@@ -101,6 +101,6 @@ fi
 if [[ ! -n $( git config --global user.email ) ]]; then
 	git config --global user.email rolandshoemaker@gmail.com
 fi
-if [[ ! -n git config --global push.default ]]; then
+if [[ ! -n $( git config --global push.default ) ]]; then
 	git config --global push.default simple
 fi
