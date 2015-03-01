@@ -51,7 +51,7 @@ export THECA_PROFILE_FOLDER=$HOME/Dropbox/.theca
 # aliases #
 ###########
 
-if [[ $( uname -s ) = "Linux" ]]; then
+if [[ "$host" = "Linux" ]]; then
 	alias update='sudo apt-get update && sudo apt-get upgrade'
 	alias apt-get='sudo apt-get'
 	alias ls='ls --color=auto'
