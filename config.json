@@ -2,6 +2,7 @@
 	"common": {
         	".zshrc": "~/.zshrc",
        		".nanorc": "~/.nanorc",
+		".tmux.conf": "~/.tmux.conf",
         	".bin": "~/.bin"
 	},
 	"machine_specific": {
