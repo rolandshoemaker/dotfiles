@@ -77,7 +77,7 @@ alias su='sudo -i'
 alias reboot='sudo /sbin/reboot'
 alias shutdown='sudo /sbin/shutdown'
 alias wget='wget -c'
-alias df='dh -H'
+alias df='df -H'
 
 ############
 # keybinds #
