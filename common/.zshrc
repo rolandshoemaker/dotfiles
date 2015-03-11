@@ -105,3 +105,6 @@ fi
 if [[ ! -n $( git config --global push.default ) ]]; then
 	git config --global push.default simple
 fi
+
+# my git where subcommand excludes
+export GIT_WHERE_EXCLUDES="/home/roland/.multirust /home/roland/Dropbox"
