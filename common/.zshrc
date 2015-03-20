@@ -69,7 +69,6 @@ alias p=python3
 alias ..='cd ..'
 alias j='jobs -l'
 alias now='date +%T'
-alias ping='ping -c 5'
 alias fuck='sudo $( history -p \!\!)'
 alias s=sudo
 alias sudo='sudo '
