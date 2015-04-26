@@ -107,3 +107,7 @@ fi
 
 # my git where subcommand excludes
 export GIT_WHERE_EXCLUDES="/home/roland/.multirust /home/roland/Dropbox"
+
+# set GOPATH + bin PATH
+export GOPATH=/home/roland/code/go
+export PATH=$PATH:/usr/local/go/bin
