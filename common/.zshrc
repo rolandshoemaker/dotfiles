@@ -109,5 +109,11 @@ fi
 export GIT_WHERE_EXCLUDES="/home/roland/.multirust /home/roland/Dropbox"
 
 # set GOPATH + bin PATH
-export GOPATH=/home/roland/code/go
+if [[ "$host" = "Linux" ]]; then
+	export GOPATH=/home/roland/code/go
+else
+	export GOPATH=/Users/roland/code/go
+	# set gnubin in path
+        export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+fi
 export PATH=$PATH:/usr/local/go/bin
